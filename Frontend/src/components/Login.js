@@ -1,20 +1,36 @@
-import React from "react";
+import React, {useEffect } from "react";
+import { useLocalState } from "../util/useLocalStorage";
 
 const Login = () => {
-  const reqBody = {
-    username: "Connor",
-    password: "password",
-  };
 
-  fetch("/api/auth/login", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "post",
-    body: JSON.stringify(reqBody),
-  })
-    .then((response) => Promise.all([response.json(), response.headers]))
-    .then(([body, headers]) => {console.log(headers.get("authorization"))});
+  const [jwt, setJwt] = useLocalState("", "jwt")
+  
+
+
+
+
+  useEffect(() => {
+    if(!jwt){
+    const reqBody = {
+      username: "Connor",
+      password: "password",
+    };
+
+    fetch("/api/auth/login", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "post",
+      body: JSON.stringify(reqBody),
+    })
+      .then((response) => Promise.all([response.json(), response.headers]))
+      .then(([body, headers]) => {
+        setJwt(headers.get("authorization"))
+      })
+    }
+  }, [])
+
+  
 
   return (
     <section className="hero is-primary is-fullheight">
