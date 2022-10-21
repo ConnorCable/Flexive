@@ -1,12 +1,16 @@
-import React, {useEffect } from "react";
+import React, {useEffect, useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
-
+import { Routes, Route } from "react-router-dom";
+import Profile from "./Profile";
 const Login = () => {
 
   const [jwt, setJwt] = useLocalState("", "jwt")
-  
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: ""
+  })
 
-
+  // TODO : Make login form work
 
 
   useEffect(() => {
@@ -77,6 +81,8 @@ const Login = () => {
           </div>
         </div>
       </div>
+
+
     </section>
   );
 };

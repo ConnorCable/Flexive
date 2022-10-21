@@ -4,14 +4,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
+
+import javax.persistence.*;
+import java.util.*;
+import com.flexivebackend.Flexive.Model.Investment;
+
 
 @Entity
 public class User implements UserDetails {
@@ -21,6 +18,16 @@ public class User implements UserDetails {
     private String username;
     private String email;
     private String password;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Investment> investmentList = new ArrayList<>();
+
+    public List<Investment> getInvestmentList() {
+        return investmentList;
+    }
+
+    public void setInvestmentList(List<Investment> investmentList) {
+        this.investmentList = investmentList;
+    }
 
     public User() {
     }

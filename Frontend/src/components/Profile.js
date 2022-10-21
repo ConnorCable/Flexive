@@ -1,10 +1,11 @@
-import "./App.css";
+import "./Profile.css";
 import "bulma/css/bulma.min.css";
 import Nav from "./Nav";
 import Card from "./Card";
 import Propertybar from "./PropertyBar";
 import Modal from "./Modal";
 import React, { useState, useEffect } from "react";
+import {useLocalState} from "../util/useLocalStorage"
 
 // Investment structure:
 // Name, ticker name, amount invested, description
@@ -20,6 +21,7 @@ import React, { useState, useEffect } from "react";
 
 
 */
+
 
 const companies = [
   {
@@ -94,11 +96,13 @@ const companies = [
   },
 ];
 
-function App() {
+function Profile() {
   const [companiesState, setCompanies] = useState(companies);
   const [companyToShow, setCompanyToShow] = useState(null);
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
+
+  const [jwt, setJwt] = useLocalState("", "jwt")
 
   const alphasort = () => {
     setCompanies(
@@ -119,11 +123,31 @@ function App() {
 
   }
 
+  
+
+  console.log(jwt)
+
+  const createInvestment = () => {
+    fetch("/api/investments", {
+        headers: {
+            "content-type" : "application/json",
+            "Authorization" : `Bearer ${jwt}`
+        },
+        method: "POST",
+
+    }).then(response => {
+      if (response.status === 200) return response.json()
+    }).then(data => {
+      console.log(data)
+    })
+}
+
+
   return (
     <div className="fullscreen">
       <Nav />
       <div className="container px-3" id="cardholder">
-        <Propertybar alphasort={alphasort} lowsort={lowsort} highsort={highsort}/>
+        <Propertybar alphasort={alphasort} lowsort={lowsort} highsort={highsort} createInvestment = {createInvestment}/>
         <div className="columns is-multiline">
           {companiesState.map(function (company) {
             return (
@@ -149,4 +173,4 @@ function App() {
   );
 }
 
-export default App;
+export default Profile;

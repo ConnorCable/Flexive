@@ -6,6 +6,8 @@ import { Route, Link, Routes } from "react-router-dom";
 
 import Login from "./Login";
 import Register from "./Register";
+import Profile from "./Profile";
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   return (
@@ -16,27 +18,28 @@ const App = () => {
             Flexive
           </p>
           <button className="button is-primary is-light">
-            <Link to="/login">
-              Login
-            </Link>
+            <Link to="/login">Login</Link>
           </button>
           <button className="button is-primary is-light ml-1">
-            <Link to="/register">
-              Sign Up
-            </Link>
+            <Link to="/register">Sign Up</Link>
           </button>
         </div>
       </div>
 
-
       <div>
         <Routes>
-        <Route exact path="/login" element={<Login />}/>
-        <Route exact path="/signup" element={<Register />}/>
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Register />} />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </div>
-
-
     </section>
   );
 };
