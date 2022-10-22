@@ -1,38 +1,51 @@
 import React, {useEffect, useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Profile from "./Profile";
+
+
 const Login = () => {
 
   const [jwt, setJwt] = useLocalState("", "jwt")
   const [credentials, setCredentials] = useState({
-    username: "",
-    password: ""
+      username: "",
+      email: "",
+      password: ""
   })
+
+
 
   // TODO : Make login form work
 
+  const changeHandler = e => {
+    setCredentials({...credentials,[e.target.name]:[e.target.value]});
+  }
 
-  useEffect(() => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
     if(!jwt){
-    const reqBody = {
-      username: "Connor",
-      password: "password",
-    };
-
-    fetch("/api/auth/login", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "post",
-      body: JSON.stringify(reqBody),
-    })
-      .then((response) => Promise.all([response.json(), response.headers]))
-      .then(([body, headers]) => {
-        setJwt(headers.get("authorization"))
+  
+      fetch("/api/auth/login", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "post",
+        body: JSON.stringify({
+          email: credentials.email,
+          username: credentials.username,
+          password: credentials.password,
+        })
       })
-    }
-  }, [])
+        .then((response) => Promise.all([response.json(), response.headers]))
+        .then(([body, headers]) => {
+          console.log(headers.get("authorization"))
+        })
+      }
+
+  } 
+
+  const {email,username,password} = credentials;
 
   
 
@@ -55,6 +68,23 @@ const Login = () => {
                       type="email"
                       placeholder="e.g. bobsmith@gmail.com"
                       className="input"
+                      value = {email}
+                      onChange={changeHandler}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <label for="" className="label">
+                    Username
+                  </label>
+                  <div className="control">
+                    <input
+                      type="username"
+                      placeholder="e.g. bobsmith"
+                      className="input"
+                      value={username}
+                      onChange={changeHandler}
                       required
                     />
                   </div>
@@ -68,13 +98,15 @@ const Login = () => {
                       type="password"
                       placeholder="*******"
                       className="input"
+                      value={password}
+                      onChange={changeHandler}
                       required
                     />
                   </div>
                 </div>
 
                 <div className="field">
-                  <button className="button is-success">Login</button>
+                  <button className="button is-success" onClick={handleSubmit}>Login</button>
                 </div>
               </form>
             </div>

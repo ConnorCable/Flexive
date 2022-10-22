@@ -12,7 +12,7 @@ public class InvestmentService {
     @Autowired
     private InvestmentRepo investmentRepo;
 
-    
+
     public Investment save(User user){
         Investment investment = new Investment();
         investment.setUser(user);
