@@ -14,7 +14,12 @@ function Nav() {
         <div className='navbar-end'>
             <div className='button is-primary mr-2 mt-3' >
                 <strong>
-                    Sign up
+                    Profile
+                </strong>
+            </div>
+            <div className='button is-danger mr-2 mt-3' >
+                <strong>
+                    Log Out
                 </strong>
             </div>
         </div>
