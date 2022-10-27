@@ -18,6 +18,9 @@ public class User implements UserDetails {
     private String username;
     private String email;
     private String password;
+
+    private int wallet = 1000;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<Investment> investmentList = new ArrayList<>();
 

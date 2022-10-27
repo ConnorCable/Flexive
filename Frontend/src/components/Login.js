@@ -22,6 +22,8 @@ const Login = () => {
   }
 
   const handleSubmit = (e) => {
+    console.log(JSON.stringify(credentials))
+
     e.preventDefault()
 
     if(!jwt){
@@ -32,7 +34,6 @@ const Login = () => {
         },
         method: "post",
         body: JSON.stringify({
-          email: credentials.email,
           username: credentials.username,
           password: credentials.password,
         })
@@ -42,10 +43,10 @@ const Login = () => {
           console.log(headers.get("authorization"))
         })
       }
-
   } 
+  
 
-  const {email,username,password} = credentials;
+  const {username,password} = credentials;
 
   
 
@@ -55,25 +56,11 @@ const Login = () => {
         <div className="container">
           <div className="columns is-centered">
             <div className="column is-5-tablet is-4-desktop is-3-widescreen">
-              <form action="" className="box" onSubmit={handleSubmit}>
+              <form className="box" onSubmit={handleSubmit}>
                 <div className="title has-text-centered has-text-grey-darker">
                   Login
                 </div>
-                <div className="field">
-                  <label for="" className="label">
-                    Email
-                  </label>
-                  <div className="control">
-                    <input
-                      type="email"
-                      placeholder="e.g. bobsmith@gmail.com"
-                      className="input"
-                      value = {email}
-                      onChange={changeHandler}
-                      required
-                    />
-                  </div>
-                </div>
+    
                 <div className="field">
                   <label for="" className="label">
                     Username
@@ -83,6 +70,7 @@ const Login = () => {
                       type="username"
                       placeholder="e.g. bobsmith"
                       className="input"
+                      name="username"
                       value={username}
                       onChange={changeHandler}
                       required
@@ -98,6 +86,7 @@ const Login = () => {
                       type="password"
                       placeholder="*******"
                       className="input"
+                      name="password"
                       value={password}
                       onChange={changeHandler}
                       required
@@ -106,7 +95,7 @@ const Login = () => {
                 </div>
 
                 <div className="field">
-                  <button className="button is-success" >Login</button>
+                  <button className="button is-success" type="submit">Login</button>
                 </div>
               </form>
             </div>
