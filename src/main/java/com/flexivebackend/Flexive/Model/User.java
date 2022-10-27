@@ -16,7 +16,6 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
-    private String email;
     private String password;
 
     private int wallet = 1000;
@@ -74,13 +73,8 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -4,8 +4,10 @@ import Nav from "./Nav";
 import Card from "./Card";
 import Propertybar from "./PropertyBar";
 import Modal from "./Modal";
+import AddInv from "./AddInvestment";
 import React, { useState, useEffect } from "react";
-import {useLocalState} from "../util/useLocalStorage"
+import { useLocalState } from "../util/useLocalStorage";
+import { useNavigate } from "react-router-dom";
 
 // Investment structure:
 // Name, ticker name, amount invested, description
@@ -21,7 +23,6 @@ import {useLocalState} from "../util/useLocalStorage"
 
 
 */
-
 
 const companies = [
   {
@@ -99,75 +100,85 @@ const companies = [
 function Profile() {
   const [companiesState, setCompanies] = useState(companies);
   const [companyToShow, setCompanyToShow] = useState(null);
+  const [jwt, setJwt] = useLocalState("", "jwt");
+  const [data, setData] = useLocalState({}, "data");
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
-
-  const [jwt, setJwt] = useLocalState("", "jwt")
+  const navigate = useNavigate();
 
   const alphasort = () => {
     setCompanies(
       [...companiesState].sort((a, b) => a.name.localeCompare(b.name))
-    )
-  }
+    );
+  };
 
-  const lowsort = () =>{
+  const lowsort = () => {
     setCompanies(
-      [...companiesState].sort((a, b) => (a.amount > b.amount) ? 1 : -1)
-    )
-
-  }
-  const highsort = () =>{
+      [...companiesState].sort((a, b) => (a.amount > b.amount ? 1 : -1))
+    );
+  };
+  const highsort = () => {
     setCompanies(
-      [...companiesState].sort((a, b) => (a.amount > b.amount) ? 1 : -1).reverse()
-    )
-
-  }
-
-  
-
-  console.log(jwt)
+      [...companiesState]
+        .sort((a, b) => (a.amount > b.amount ? 1 : -1))
+        .reverse()
+    );
+  };
 
   const createInvestment = () => {
+    console.log("Create Investment");
     fetch("/api/investments", {
-        headers: {
-            "content-type" : "application/json",
-            "Authorization" : `Bearer ${jwt}`
-        },
-        method: "POST",
-
-    }).then(response => {
-      if (response.status === 200) return response.json()
-    }).then(data => {
-      console.log(data)
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+      method: "POST",
     })
-}
+      .then((response) => {
+        if (response.status === 200) console.log(response);
+      })
+      .then((data) => {
+        console.log(data);
+      });
+  };
 
+  if (!jwt || !data) {
+    navigate("/login");
+  }
 
   return (
-    <div className="fullscreen">
+    <div className="fullscreen ">
       <Nav />
-      <div className="container px-3" id="cardholder">
-        <Propertybar alphasort={alphasort} lowsort={lowsort} highsort={highsort} createInvestment = {createInvestment}/>
-        <div className="columns is-multiline">
-          {companiesState.map(function (company) {
-            return (
-              <div
-                className="column is-one-fifth"
-                key={company.id}
-                onClick={() => showModal(company)}
-              >
-                <Card company={company} />
-              </div>
-            );
-          })}
-        </div>
-        {companyToShow && (
-          <Modal
-            show={companyToShow}
-            company={companyToShow}
-            onClose={hideModal}
+      <div className="columns is-multiline">
+        <div className="container column px-3 py-4" id="cardholder">
+          <Propertybar
+            alphasort={alphasort}
+            lowsort={lowsort}
+            highsort={highsort}
+            createInvestment={createInvestment}
           />
-        )}
+          <div className="columns is-multiline">
+            {companiesState.map(function (company) {
+              return (
+                <div
+                  className="column is-one-fifth"
+                  key={company.id}
+                  onClick={() => showModal(company)}
+                >
+                  <Card company={company} />
+                </div>
+              );
+            })}
+          </div>
+          {companyToShow && (
+            <Modal
+              show={companyToShow}
+              company={companyToShow}
+              onClose={hideModal}
+            />
+          )}
+        </div>
+        <AddInv />
       </div>
     </div>
   );

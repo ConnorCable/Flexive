@@ -1,32 +1,29 @@
 import React, {useEffect, useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Profile from "./Profile";
+import Nav from "./Nav";
 
 
 const Login = () => {
 
   const [jwt, setJwt] = useLocalState("", "jwt")
-  const [credentials, setCredentials] = useState({
-      username: "",
-      email: "",
-      password: ""
-  })
+  const [data, setData] = useLocalState({}, "data")
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
 
 
   // TODO : Make login form work
 
-  const changeHandler = e => {
-    setCredentials({...credentials,[e.target.name]:[e.target.value]});
-  }
+  
 
   const handleSubmit = (e) => {
-    console.log(JSON.stringify(credentials))
 
     e.preventDefault()
 
-    if(!jwt){
+    if(!jwt || !data){
   
       fetch("/api/auth/login", {
         headers: {
@@ -34,22 +31,27 @@ const Login = () => {
         },
         method: "post",
         body: JSON.stringify({
-          username: credentials.username,
-          password: credentials.password,
+          username: username,
+          password: password
         })
       })
         .then((response) => Promise.all([response.json(), response.headers]))
         .then(([body, headers]) => {
-          console.log(headers.get("authorization"))
+          setJwt(headers.get("authorization"), setData(body))
         })
+        navigate('/profile')
       }
+      else if (jwt && data){
+        navigate('/profile')
+      }
+     
+
+     
   } 
   
 
-  const {username,password} = credentials;
 
   
-
   return (
     <section className="hero is-primary is-fullheight">
       <div className="hero-body">
@@ -71,8 +73,8 @@ const Login = () => {
                       placeholder="e.g. bobsmith"
                       className="input"
                       name="username"
-                      value={username}
-                      onChange={changeHandler}
+                      
+                      onChange={e => setUsername(e.target.value)}
                       required
                     />
                   </div>
@@ -88,7 +90,7 @@ const Login = () => {
                       className="input"
                       name="password"
                       value={password}
-                      onChange={changeHandler}
+                      onChange={e => setPassword(e.target.value)}
                       required
                     />
                   </div>
