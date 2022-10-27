@@ -55,7 +55,7 @@ const Login = () => {
         <div className="container">
           <div className="columns is-centered">
             <div className="column is-5-tablet is-4-desktop is-3-widescreen">
-              <form action="" className="box">
+              <form action="" className="box" onSubmit={handleSubmit}>
                 <div className="title has-text-centered has-text-grey-darker">
                   Login
                 </div>
@@ -106,7 +106,7 @@ const Login = () => {
                 </div>
 
                 <div className="field">
-                  <button className="button is-success" onClick={handleSubmit}>Login</button>
+                  <button className="button is-success" >Login</button>
                 </div>
               </form>
             </div>
