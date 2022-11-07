@@ -10,6 +10,8 @@ public class Investment {
     private int id;
     private String name;
     private String ticker;
+
+    private int invested = 0;
     private String description;
     @ManyToOne(optional = false)
     private User user;
@@ -20,6 +22,14 @@ public class Investment {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getInvested() {
+        return invested;
+    }
+
+    public void setInvested(int invested) {
+        this.invested = invested;
     }
 
     public String getName() {

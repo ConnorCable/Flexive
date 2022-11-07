@@ -102,6 +102,12 @@ function Profile() {
   const [companyToShow, setCompanyToShow] = useState(null);
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [data, setData] = useLocalState({}, "data");
+  const [showCreate, setShowCreate] = useState(false)
+  const [newInvestment, setNewInvestment] = useState({
+    invame: "",
+    description: "",
+    ticker: ""
+  })
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
   const navigate = useNavigate();
@@ -125,6 +131,15 @@ function Profile() {
     );
   };
 
+  const addInvestment = () => {
+    setShowCreate(!showCreate)
+  }
+
+  const setInvData = (e) => {
+    setNewInvestment({...newInvestment, [e.target.name] : [e.target.value]})
+  }
+
+/*
   const createInvestment = () => {
     console.log("Create Investment");
     fetch("/api/investments", {
@@ -133,6 +148,11 @@ function Profile() {
         Authorization: `Bearer ${jwt}`,
       },
       method: "POST",
+       body: JSON.stringify({
+          description: newInvestment["description"],
+          name: newInvestment["invname"],
+          ticker: newInvestment["ticker"],
+        })
     })
       .then((response) => {
         if (response.status === 200) console.log(response);
@@ -141,6 +161,7 @@ function Profile() {
         console.log(data);
       });
   };
+*/
 
   if (!jwt || !data) {
     navigate("/login");
@@ -155,7 +176,7 @@ function Profile() {
             alphasort={alphasort}
             lowsort={lowsort}
             highsort={highsort}
-            createInvestment={createInvestment}
+            addInvestment = {addInvestment}
           />
           <div className="columns is-multiline">
             {companiesState.map(function (company) {
@@ -178,7 +199,7 @@ function Profile() {
             />
           )}
         </div>
-        <AddInv />
+        {showCreate && <AddInv addInvestment={addInvestment} setInvData = {setInvData} />}
       </div>
     </div>
   );

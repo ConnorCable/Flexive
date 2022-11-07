@@ -16,7 +16,7 @@ const Propertybar = (props) => {
         <div className="navbar-item is-size-2 pb-3" id="title">
           Your Investments
         </div>
-        <div className="navbar-item button is-primary mr-5 mt-4" onClick={props.createInvestment} >New</div>
+        <div className="navbar-item button is-primary mr-5 mt-4" onClick={props.addInvestment} >New</div>
       </div>
 
       <div className="navbar-end">

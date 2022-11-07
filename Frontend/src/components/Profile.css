@@ -23,6 +23,7 @@
 
 #createinvestment{
   position: relative;
-
-  
+  top: 10vh;
+  right: 15vh;
 }
+
