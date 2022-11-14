@@ -1,9 +1,19 @@
+import { useState } from "react";
 import "./Profile.css";
-import React from "react";
+import { useLocalState } from "../util/useLocalStorage";
+
 
 const AddInv = (props) => {
+  const [jwt, setJwt] = useLocalState("", "jwt");
 
- 
+  
+
+  
+
+  
+
+
+  const {invname, ticker, description} = props.newInvestment
 
 
   return (
@@ -16,7 +26,7 @@ const AddInv = (props) => {
               <label className="label">Name</label>
             </div>
             <div className="control">
-              <input className="input" name="invname" value={invname} onChange={props.setInvData}/>
+              <input className="input" name="invname" value={invname} onChange={props.changeHandler} required/>
             </div>
           </div>
           <div className="field is-horizontal">
@@ -24,7 +34,7 @@ const AddInv = (props) => {
               <label className="label">Ticker</label>
             </div>
             <div className="control">
-              <input className="input" />
+              <input className="input" name="ticker" value={ticker} onChange={props.changeHandler} required />
             </div>
           </div>
           <div className="field is-horizontal">
@@ -32,12 +42,12 @@ const AddInv = (props) => {
               <label className="label">Description</label>
             </div>
             <div className="control">
-              <input className="input" />
+              <input className="input" name="description" value={description} onChange={props.changeHandler} required/>
             </div>
           </div>
           <div className="field is-grouped is-justify-content-center">
             <div className="control">
-              <button className="button is-link">Submit</button>
+              <button className="button is-link" onClick={props.createInvestment}>Submit</button>
             </div>
             <div className="control">
               <button className="button is-link is-light" onClick={props.addInvestment}>Cancel</button>

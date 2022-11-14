@@ -103,11 +103,7 @@ function Profile() {
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [data, setData] = useLocalState({}, "data");
   const [showCreate, setShowCreate] = useState(false)
-  const [newInvestment, setNewInvestment] = useState({
-    invame: "",
-    description: "",
-    ticker: ""
-  })
+  
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
   const navigate = useNavigate();
@@ -135,13 +131,39 @@ function Profile() {
     setShowCreate(!showCreate)
   }
 
-  const setInvData = (e) => {
-    setNewInvestment({...newInvestment, [e.target.name] : [e.target.value]})
+  const [newInvestment, setNewInvestment] = useState({
+    invname: "",
+    description: "",
+    ticker: ""
+  })
+
+  const changeHandler = (e) => {
+    setNewInvestment({...newInvestment, [e.target.name] : e.target.value})
   }
 
-/*
-  const createInvestment = () => {
-    console.log("Create Investment");
+  useEffect(() => {
+    fetch("/api/investments", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+      method: "POST",
+    })
+      .then((response) => {
+        if (response.status === 200) console.log(response);
+      })
+      .then((data) => {
+        setCompanies(data);
+      });
+  },[])
+
+  const createInvestment = (e) => {
+    e.preventDefault()
+
+    console.log(newInvestment)
+
+    
+
     fetch("/api/investments", {
       headers: {
         "content-type": "application/json",
@@ -149,9 +171,9 @@ function Profile() {
       },
       method: "POST",
        body: JSON.stringify({
-          description: newInvestment["description"],
-          name: newInvestment["invname"],
-          ticker: newInvestment["ticker"],
+          "description": newInvestment["description"],
+          "name": newInvestment["invname"],
+          "ticker": newInvestment["ticker"],
         })
     })
       .then((response) => {
@@ -160,8 +182,12 @@ function Profile() {
       .then((data) => {
         console.log(data);
       });
+      addInvestment()
   };
-*/
+
+ 
+
+
 
   if (!jwt || !data) {
     navigate("/login");
@@ -179,7 +205,7 @@ function Profile() {
             addInvestment = {addInvestment}
           />
           <div className="columns is-multiline">
-            {companiesState.map(function (company) {
+            {companiesState && companiesState.map(function (company) {
               return (
                 <div
                   className="column is-one-fifth"
@@ -199,7 +225,7 @@ function Profile() {
             />
           )}
         </div>
-        {showCreate && <AddInv addInvestment={addInvestment} setInvData = {setInvData} />}
+        {showCreate && <AddInv addInvestment={addInvestment} changeHandler={changeHandler} createInvestment = {createInvestment} newInvestment = {newInvestment} />}
       </div>
     </div>
   );

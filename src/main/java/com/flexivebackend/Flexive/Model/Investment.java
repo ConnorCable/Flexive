@@ -8,11 +8,11 @@ public class Investment {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private String ticker;
+    private String name = "New Investment";
+    private String ticker = "Ticker";
 
-    private int invested = 0;
-    private String description;
+    private Integer invested = 0;
+    private String description = "Description";
     @ManyToOne(optional = false)
     private User user;
 
