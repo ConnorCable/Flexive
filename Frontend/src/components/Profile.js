@@ -98,7 +98,7 @@ const companies = [
 ];
 
 function Profile() {
-  const [companiesState, setCompanies] = useState(companies);
+  const [companiesState, setCompanies] = useState(null);
   const [companyToShow, setCompanyToShow] = useState(null);
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [data, setData] = useLocalState({}, "data");
@@ -142,19 +142,21 @@ function Profile() {
   }
 
   useEffect(() => {
+    console.log("Get Request Ran")
     fetch("/api/investments", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${jwt}`,
       },
-      method: "POST",
+      method: "GET",
     })
       .then((response) => {
-        if (response.status === 200) console.log(response);
+        if (response.status === 200) return response.json();
       })
       .then((data) => {
         setCompanies(data);
       });
+      console.log(companiesState)
   },[])
 
   const createInvestment = (e) => {

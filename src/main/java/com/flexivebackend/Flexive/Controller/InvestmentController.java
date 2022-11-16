@@ -23,7 +23,6 @@ public class InvestmentController {
     @PostMapping("")
     public ResponseEntity<?> createInvestment ( @AuthenticationPrincipal User user){
         Investment newinvestment = investmentService.save(user);
-        System.out.println(user);
         return ResponseEntity.ok(newinvestment);
     }
 

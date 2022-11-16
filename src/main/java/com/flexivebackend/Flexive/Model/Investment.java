@@ -1,6 +1,9 @@
 package com.flexivebackend.Flexive.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +16,7 @@ public class Investment {
 
     private Integer invested = 0;
     private String description = "Description";
+    @JsonBackReference
     @ManyToOne(optional = false)
     private User user;
 

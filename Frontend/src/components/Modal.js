@@ -1,7 +1,11 @@
 import Card from "./Card";
 import "./Components.css";
+import { useState } from "react";
+import EditInvestment from "./EditInvestment";
 
 const Modal = (props) => {
+  const [showEdit, setShowEdit] = useState(false)
+
   if (props.show == null) {
     console.log("Modal is hidden");
     return null;
@@ -26,7 +30,11 @@ const Modal = (props) => {
         <button className="button is-danger" onClick={props.onClose}>
           Close
         </button>
+        <button className="button is-warning ml-3" onClick={props.onClose}>
+          Edit
+        </button>
       </div>
+      
     </div>
   );
 };
