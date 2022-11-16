@@ -1,10 +1,10 @@
 import Card from "./Card";
 import "./Components.css";
 import { useState } from "react";
-import EditInvestment from "./EditInvestment";
+import { Link } from "react-router-dom";
 
 const Modal = (props) => {
-  const [showEdit, setShowEdit] = useState(false)
+  const [showEdit, setShowEdit] = useState(true)
 
   if (props.show == null) {
     console.log("Modal is hidden");
@@ -30,11 +30,12 @@ const Modal = (props) => {
         <button className="button is-danger" onClick={props.onClose}>
           Close
         </button>
-        <button className="button is-warning ml-3" onClick={props.onClose}>
+        <button className="button is-warning ml-3" onClick={console.log("edit clicked")} >
+          <Link to={`/investments/${props.company.id}`} />
           Edit
         </button>
       </div>
-      
+
     </div>
   );
 };

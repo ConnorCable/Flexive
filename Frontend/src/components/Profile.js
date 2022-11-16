@@ -162,7 +162,7 @@ function Profile() {
   const createInvestment = (e) => {
     e.preventDefault()
 
-    console.log(newInvestment)
+
 
     
 
@@ -182,7 +182,7 @@ function Profile() {
         if (response.status === 200) console.log(response);
       })
       .then((data) => {
-        console.log(data);
+        window.location.href = `/investments/${data.id}`;
       });
       addInvestment()
   };
