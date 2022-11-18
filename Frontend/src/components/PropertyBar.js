@@ -29,15 +29,15 @@ const Propertybar = (props) => {
           <div className="navbar-link button is-primary">Sort</div>
 
           <div className="navbar-dropdown py-2">
-            <div className="navbar-item sort" onClick={props.alphasort}>
+            <div className="navbar-item sort" onClick={props.sorts[0]}>
               Alphabetically
             </div>
             <hr className="navbar-divider" />
-            <div className="navbar-item sort is-light" onClick={props.lowsort}>
+            <div className="navbar-item sort is-light" onClick={props.sorts[1]}>
               Investment Low-High
             </div>
             <hr className="navbar-divider" />
-            <div className="navbar-item sort" onClick={props.highsort}>
+            <div className="navbar-item sort" onClick={props.sorts[2]}>
               Investment High-Low
             </div>
           </div>

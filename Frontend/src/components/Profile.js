@@ -8,7 +8,26 @@ import React, { useState, useEffect } from "react";
 import { useLocalState } from "../util/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { getInvestments, addInvestment } from "../util/api";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
+/*
+
+{companiesState &&
+              companiesState.map(function (company) {
+                return (
+                  <div
+                    className="column is-one-fifth"
+                    key={company.id}
+                    onClick={() => showModal(company)}
+                  >
+                    <Card company={company} />
+                  </div>
+                );
+              })}
+
+
+
+*/
 
 
 
@@ -18,6 +37,7 @@ function Profile() {
   const [companyToShow, setCompanyToShow] = useState(null);
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [data, setData] = useLocalState({}, "data");
+  const [hasMore, setHasMore] = useState(false)
 
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
@@ -25,13 +45,13 @@ function Profile() {
 
   const alphasort = () => {
     setCompanies(
-      [...companiesState].sort((a, b) => a.name.localeCompare(b.name))
+      alphasort(companiesState)
     );
   };
 
   const lowsort = () => {
     setCompanies(
-      [...companiesState].sort((a, b) => (a.amount > b.amount ? 1 : -1))
+      lowsort(companiesState)
     );
   };
   const highsort = () => {
@@ -42,12 +62,15 @@ function Profile() {
     );
   };
 
+  let sorts = [alphasort,lowsort,highsort]
+
   useEffect(() => {
     getInvestments(jwt).then(data => setCompanies(data))
-  }, [companiesState]);
+  }, []);
+  
 
   const createInvestment = (e) => {
-    addInvestment(jwt)
+    setCompanies(...companiesState, addInvestment(jwt))
   };
 
   if (!jwt || !data) {
@@ -60,14 +83,20 @@ function Profile() {
       <div className="columns is-multiline">
         <div className="container column px-3 py-4" id="cardholder">
           <Propertybar
-            alphasort={alphasort}
-            lowsort={lowsort}
-            highsort={highsort}
+            sorts = {sorts}
             createInvestment={createInvestment}
           />
-          <div className="columns is-multiline">
+          
+          <div className="columns is-multiline py-4 px-3">
+
             {companiesState &&
-              companiesState.map(function (company) {
+            <InfiniteScroll
+              dataLength={companiesState.length}
+              loader={<h4>Loading...</h4>}
+              height={800}
+              className=" columns is-multiline"
+            >
+              {companiesState.map(function (company) {
                 return (
                   <div
                     className="column is-one-fifth"
@@ -78,6 +107,11 @@ function Profile() {
                   </div>
                 );
               })}
+            
+
+
+            </InfiniteScroll>
+            }
           </div>
         </div>
       </div>
