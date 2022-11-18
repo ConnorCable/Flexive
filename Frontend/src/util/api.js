@@ -1,23 +1,18 @@
 
 
 
-export const getInvestments = (jwt) =>{
-    let investments;
-    fetch("/api/investments", {
+export async function  getInvestments(jwt){
+
+    const resp = await fetch("/api/investments", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${jwt}`,
       },
       method: "GET",
     })
-      .then((response) => {
-        if (response.status === 200) console.l;
-      })
-      .then((data) => {
-        return data
-      });
-      console.log(investments)
-      return investments;
+    const data = await resp.json()
+
+    return data
 }
 
 
@@ -29,13 +24,6 @@ export const addInvestment = (jwt) => {
         Authorization: `Bearer ${jwt}`,
       },
       method: "POST",
-      body: JSON.stringify({
-        /*
-          "description": newInvestment["description"],
-          "name": newInvestment["invname"],
-          "ticker": newInvestment["ticker"],
-          */
-      }),
     })
       .then((response) => {
         if (response.status === 200) console.log(response);

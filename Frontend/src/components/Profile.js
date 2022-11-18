@@ -4,25 +4,12 @@ import Nav from "./Nav";
 import Card from "./Card";
 import Propertybar from "./PropertyBar";
 import Modal from "./Modal";
-import AddInv from "./AddInvestment";
 import React, { useState, useEffect } from "react";
 import { useLocalState } from "../util/useLocalStorage";
 import { useNavigate } from "react-router-dom";
-import { getInvestments } from "../util/api";
-// Investment structure:
-// Name, ticker name, amount invested, description
-
-// query structure:
-/*
-  returned as an array
-  [
-    {
-      name: "Microsoft", ticker: "MSFT", description: "tech company"
-    }
-  ]
+import { getInvestments, addInvestment } from "../util/api";
 
 
-*/
 
 
 
@@ -31,7 +18,6 @@ function Profile() {
   const [companyToShow, setCompanyToShow] = useState(null);
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [data, setData] = useLocalState({}, "data");
-  const [showCreate, setShowCreate] = useState(false);
 
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
@@ -57,51 +43,11 @@ function Profile() {
   };
 
   useEffect(() => {
-    
-    setCompanies(getInvestments(jwt))
-
-    /*
-    console.log("Get Request Ran");
-    fetch("/api/investments", {
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${jwt}`,
-      },
-      method: "GET",
-    })
-      .then((response) => {
-        if (response.status === 200) return response.json();
-      })
-      .then((data) => {
-        setCompanies(data);
-      });
-    console.log(companiesState);
-    */
-  }, []);
+    getInvestments(jwt).then(data => setCompanies(data))
+  }, [companiesState]);
 
   const createInvestment = (e) => {
-    console.log("create investment");
-
-    fetch("/api/investments", {
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${jwt}`,
-      },
-      method: "POST",
-      body: JSON.stringify({
-        /*
-          "description": newInvestment["description"],
-          "name": newInvestment["invname"],
-          "ticker": newInvestment["ticker"],
-          */
-      }),
-    })
-      .then((response) => {
-        if (response.status === 200) console.log(response);
-      })
-      .then((data) => {
-        console.log(data);
-      });
+    addInvestment(jwt)
   };
 
   if (!jwt || !data) {
