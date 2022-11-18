@@ -49,7 +49,9 @@ const Login = () => {
      
   } 
   
-
+  if(jwt && data){
+    navigate('/profile')
+  }
 
   
   return (
