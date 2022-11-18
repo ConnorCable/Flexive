@@ -102,8 +102,8 @@ function Profile() {
   const [companyToShow, setCompanyToShow] = useState(null);
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [data, setData] = useLocalState({}, "data");
-  const [showCreate, setShowCreate] = useState(false)
-  
+  const [showCreate, setShowCreate] = useState(false);
+
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
   const navigate = useNavigate();
@@ -127,22 +127,8 @@ function Profile() {
     );
   };
 
-  const addInvestment = () => {
-    setShowCreate(!showCreate)
-  }
-
-  const [newInvestment, setNewInvestment] = useState({
-    invname: "",
-    description: "",
-    ticker: ""
-  })
-
-  const changeHandler = (e) => {
-    setNewInvestment({...newInvestment, [e.target.name] : e.target.value})
-  }
-
   useEffect(() => {
-    console.log("Get Request Ran")
+    console.log("Get Request Ran");
     fetch("/api/investments", {
       headers: {
         "content-type": "application/json",
@@ -156,15 +142,11 @@ function Profile() {
       .then((data) => {
         setCompanies(data);
       });
-      console.log(companiesState)
-  },[])
+    console.log(companiesState);
+  }, []);
 
   const createInvestment = (e) => {
-    e.preventDefault()
-
-
-
-    
+    console.log("create investment");
 
     fetch("/api/investments", {
       headers: {
@@ -172,24 +154,21 @@ function Profile() {
         Authorization: `Bearer ${jwt}`,
       },
       method: "POST",
-       body: JSON.stringify({
+      body: JSON.stringify({
+        /*
           "description": newInvestment["description"],
           "name": newInvestment["invname"],
           "ticker": newInvestment["ticker"],
-        })
+          */
+      }),
     })
       .then((response) => {
         if (response.status === 200) console.log(response);
       })
       .then((data) => {
-        window.location.href = `/investments/${data.id}`;
+        console.log(data);
       });
-      addInvestment()
   };
-
- 
-
-
 
   if (!jwt || !data) {
     navigate("/login");
@@ -204,31 +183,31 @@ function Profile() {
             alphasort={alphasort}
             lowsort={lowsort}
             highsort={highsort}
-            addInvestment = {addInvestment}
+            createInvestment={createInvestment}
           />
           <div className="columns is-multiline">
-            {companiesState && companiesState.map(function (company) {
-              return (
-                <div
-                  className="column is-one-fifth"
-                  key={company.id}
-                  onClick={() => showModal(company)}
-                >
-                  <Card company={company} />
-                </div>
-              );
-            })}
+            {companiesState &&
+              companiesState.map(function (company) {
+                return (
+                  <div
+                    className="column is-one-fifth"
+                    key={company.id}
+                    onClick={() => showModal(company)}
+                  >
+                    <Card company={company} />
+                  </div>
+                );
+              })}
           </div>
-          {companyToShow && (
-            <Modal
-              show={companyToShow}
-              company={companyToShow}
-              onClose={hideModal}
-            />
-          )}
         </div>
-        {showCreate && <AddInv addInvestment={addInvestment} changeHandler={changeHandler} createInvestment = {createInvestment} newInvestment = {newInvestment} />}
       </div>
+      {companyToShow && (
+        <Modal
+          show={companyToShow}
+          company={companyToShow}
+          onClose={hideModal}
+        />
+      )}
     </div>
   );
 }

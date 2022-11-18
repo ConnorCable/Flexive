@@ -37,4 +37,6 @@ public class InvestmentController {
         return ResponseEntity.ok(investmentsByUser);
     }
 
+
+
 }
