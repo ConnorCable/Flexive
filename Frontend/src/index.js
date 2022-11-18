@@ -6,7 +6,7 @@ import App from './components/App';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
-
+import Account from './components/Account';
 import PrivateRoute from './components/PrivateRoute';
 
 
@@ -29,6 +29,10 @@ const router = createBrowserRouter([
 
     element: <Profile />
   },
+  {
+    path: "account",
+    element: <Account />
+  }
   
 ])
 

@@ -14,8 +14,15 @@ public class InvestmentService {
     @Autowired
     private InvestmentRepo investmentRepo;
 
-    public void update(Investment investment){
-        investmentRepo.save(investment);
+    public Investment update(Investment newInvestment){
+        investmentRepo.findById(newInvestment.getId()).map(inv ->{
+            inv.setName(newInvestment.getName());
+            inv.setDescription(newInvestment.getDescription());
+            inv.setTicker(newInvestment.getTicker());
+            return investmentRepo.save(inv);
+        }).orElseGet(() -> investmentRepo.save(newInvestment));
+
+        return newInvestment;
     }
     public Investment save(User user){
         Investment investment = new Investment();

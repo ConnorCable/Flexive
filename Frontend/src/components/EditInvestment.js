@@ -1,8 +1,11 @@
 import { useState } from "react";
-
+import { useLocalState } from "../util/useLocalStorage";
 
 
 const EditInvestment = (props) => {
+  const [jwt, setJwt] = useLocalState("", "jwt");
+
+
 
 
 
@@ -14,6 +17,33 @@ const EditInvestment = (props) => {
   let name;
   let description;
   let ticker;
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    fetch("/api/investments", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+      method: "PUT",
+      body: JSON.stringify({
+        /*
+          "description": newInvestment["description"],
+          "name": newInvestment["invname"],
+          "ticker": newInvestment["ticker"],
+          */
+         ...companyDetails
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) return response.json();
+      })
+      .then((data) => {
+        console.log(data)
+      });
+
+      props.onClose()
+  }
 
   const changeHandler = (e) => {
     setCompanyDetails({...companyDetails, [e.target.name] : e.target.value})
@@ -42,7 +72,7 @@ const EditInvestment = (props) => {
         </div>
       </div>
       <div className="control">
-        <button className="button is-primary">Submit Changes</button>
+        <button className="button is-primary" onClick={handleSubmit}>Submit Changes</button>
       </div>
     </form>
   );

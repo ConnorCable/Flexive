@@ -27,8 +27,9 @@ public class InvestmentController {
     }
 
     @PutMapping("")
-    public void change(@PathVariable Investment investment){
-        investmentService.update(investment);
+    public ResponseEntity<?> update (@RequestBody Investment investment){
+        Investment updatedInvestment = investmentService.update(investment);
+        return ResponseEntity.ok(updatedInvestment);
     }
 
     @GetMapping("")

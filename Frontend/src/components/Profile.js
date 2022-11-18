@@ -8,7 +8,7 @@ import AddInv from "./AddInvestment";
 import React, { useState, useEffect } from "react";
 import { useLocalState } from "../util/useLocalStorage";
 import { useNavigate } from "react-router-dom";
-
+import { getInvestments } from "../util/api";
 // Investment structure:
 // Name, ticker name, amount invested, description
 
@@ -24,78 +24,7 @@ import { useNavigate } from "react-router-dom";
 
 */
 
-const companies = [
-  {
-    key: 0,
-    name: "Microsoft",
-    ticker: "MSFT",
-    amount: 100,
-    description: "Tech Company",
-  },
-  {
-    key: 1,
-    name: "Twitter",
-    ticker: "TWTR",
-    amount: 100,
-    description: "Tweet Company",
-  },
-  {
-    key: 2,
-    name: "Spotify",
-    ticker: "SPOT",
-    amount: 100,
-    description: "Music Company",
-  },
-  {
-    key: 3,
-    name: "Spotify",
-    ticker: "SPOT",
-    amount: 100,
-    description: "Music Company",
-  },
-  {
-    key: 4,
-    name: "Spotify",
-    ticker: "SPOT",
-    amount: 100,
-    description: "Music Company",
-  },
-  {
-    key: 5,
-    name: "Spotify",
-    ticker: "SPOT",
-    amount: 100,
-    description: "Music Company",
-  },
-  {
-    key: 6,
-    name: "Palantir",
-    ticker: "SPOT",
-    amount: 100,
-    description: "Music Company",
-  },
-  {
-    key: 7,
-    name: "Linkedin",
-    ticker: "SPOT",
-    amount: 100,
-    description: "Music Company",
-  },
-  {
-    key: 8,
-    name: "Gertrude",
-    ticker: "SPOT",
-    amount: 1200,
-    description: "Music Company",
-  },
-  {
-    key: 9,
-    name: "Alphabet",
-    ticker: "SPOT",
-    amount: 1123150,
-    description: "Music Company",
-  },
-];
+
 
 function Profile() {
   const [companiesState, setCompanies] = useState(null);
@@ -128,6 +57,10 @@ function Profile() {
   };
 
   useEffect(() => {
+    
+    setCompanies(getInvestments(jwt))
+
+    /*
     console.log("Get Request Ran");
     fetch("/api/investments", {
       headers: {
@@ -143,6 +76,7 @@ function Profile() {
         setCompanies(data);
       });
     console.log(companiesState);
+    */
   }, []);
 
   const createInvestment = (e) => {
