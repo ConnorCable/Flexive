@@ -1,7 +1,5 @@
-import 'bulma/css/bulma.min.css';
 
-import Modal from './Modal';
-import React, {useState} from 'react';
+import React from 'react';
 const Card = (props) => {
 const {name, ticker, amount, description} = props.company
 

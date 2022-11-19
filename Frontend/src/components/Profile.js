@@ -37,7 +37,6 @@ function Profile() {
   const [companyToShow, setCompanyToShow] = useState(null);
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [data, setData] = useLocalState({}, "data");
-  const [hasMore, setHasMore] = useState(false)
 
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
@@ -45,13 +44,13 @@ function Profile() {
 
   const alphasort = () => {
     setCompanies(
-      alphasort(companiesState)
+      [...companiesState].sort((a, b) => a.name.localeCompare(b.name))
     );
   };
 
   const lowsort = () => {
     setCompanies(
-      lowsort(companiesState)
+      [...companiesState].sort((a, b) => (a.amount > b.amount ? 1 : -1))
     );
   };
   const highsort = () => {
@@ -70,7 +69,7 @@ function Profile() {
   
 
   const createInvestment = (e) => {
-    setCompanies(...companiesState, addInvestment(jwt))
+    addInvestment(jwt)
   };
 
   if (!jwt || !data) {
@@ -87,7 +86,7 @@ function Profile() {
             createInvestment={createInvestment}
           />
           
-          <div className="columns is-multiline py-4 px-3">
+          <div className="columns is-multiline py-4 px-5">
 
             {companiesState &&
             <InfiniteScroll
