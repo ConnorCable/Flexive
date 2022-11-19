@@ -34,13 +34,18 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 function Profile() {
   const [companiesState, setCompanies] = useState(null);
+  const [visualCompanies, setVisualCompanies] = useState(null)
   const [companyToShow, setCompanyToShow] = useState(null);
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [data, setData] = useLocalState({}, "data");
 
+
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
   const navigate = useNavigate();
+
+
+  // sort functions
 
   const alphasort = () => {
     setCompanies(
@@ -63,8 +68,11 @@ function Profile() {
 
   let sorts = [alphasort,lowsort,highsort]
 
+  
+  // API Calls
   useEffect(() => {
     getInvestments(jwt).then(data => setCompanies(data))
+    
   }, []);
   
 
@@ -72,9 +80,8 @@ function Profile() {
     addInvestment(jwt)
   };
 
-  if (!jwt || !data) {
-    navigate("/login");
-  }
+
+  
 
   return (
     <div className="fullscreen ">

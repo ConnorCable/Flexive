@@ -4,6 +4,10 @@ import React from "react";
 
 
 const Propertybar = (props) => {
+
+  
+
+
     
   return (
     <nav
@@ -16,17 +20,17 @@ const Propertybar = (props) => {
         <div className="navbar-item is-size-2 pb-3" id="title">
           Your Investments
         </div>
-        <div className="navbar-item button is-primary mr-5 mt-4" onClick={props.createInvestment} >New</div>
+        
       </div>
 
       <div className="navbar-end">
         
-
+      <div className="navbar-item button is-primary mr-5 mt-5" id="newbutton" onClick={props.createInvestment} >New</div>
         <div
           className="navbar-item has-dropdown is-hoverable mt-1"
           id="dropdown"
         >
-          <div className="navbar-link button is-primary">Sort</div>
+          <div className="navbar-link button is-primary mt-2">Sort</div>
 
           <div className="navbar-dropdown py-2">
             <div className="navbar-item sort" onClick={props.sorts[0]}>
@@ -43,12 +47,6 @@ const Propertybar = (props) => {
           </div>
         </div>
 
-        <input
-          className="input is-rounded mt-1"
-          type="text"
-          placeholder="Search"
-          id="search"
-        ></input>
       </div>
     </nav>
   );

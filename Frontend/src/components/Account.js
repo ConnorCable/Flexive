@@ -6,7 +6,7 @@ const Account = () => {
   return (
     <div>
       <Nav />
-      <section className="hero is-primary is-fullheight">
+      <section className="hero fullscreen is-fullheight">
         <div className="hero-body">
           <div className="container">
             <strong className="is-size-1">Add Funds</strong>
