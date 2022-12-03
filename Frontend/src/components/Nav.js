@@ -1,13 +1,17 @@
 import "bulma/css/bulma.min.css";
 import "./Components.css";
 import {Link} from "react-router-dom";
+import { useLocalState } from "../util/useLocalStorage";
+
 
 function Nav() {
+  const [data, setData] = useLocalState({}, "data");
+
 
     let linkButton;
 
     if(window.location.pathname === "/profile"){
-        linkButton = "/account"
+        linkButton = `/account/${data["id"]}`
     }
     else{
         linkButton = "/profile"

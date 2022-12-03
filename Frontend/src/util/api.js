@@ -53,3 +53,26 @@ export const updateInvestment = (jwt, company) => {
         });
 
 }
+
+
+export const addFunds = (jwt, funds, id) => {
+  fetch(`/api/users/account/${id}`, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+    method: "PATCH",
+    body: JSON.stringify({
+      "op":"replace",
+      "wallet":"/wallet",
+      "value": funds
+    }),
+  })
+    .then((response) => {
+      if (response.status === 200) return response.json();
+    })
+    .then((data) => {
+      console.log(data)
+    });
+
+}
