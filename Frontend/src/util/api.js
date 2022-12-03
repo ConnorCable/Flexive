@@ -63,9 +63,7 @@ export const addFunds = (jwt, funds, id) => {
     },
     method: "PATCH",
     body: JSON.stringify({
-      "op":"replace",
-      "wallet":"/wallet",
-      "value": funds
+      "wallet" : funds
     }),
   })
     .then((response) => {
