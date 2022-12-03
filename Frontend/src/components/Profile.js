@@ -42,7 +42,6 @@ function Profile() {
 
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
-  const navigate = useNavigate();
 
 
   // sort functions

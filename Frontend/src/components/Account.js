@@ -4,6 +4,8 @@ import { useLocalState } from "../util/useLocalStorage";
 
 
 const Account = () => {
+  const [data, setData] = useLocalState({}, "data");
+
 
 
   let money;

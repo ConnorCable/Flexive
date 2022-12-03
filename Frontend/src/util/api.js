@@ -74,3 +74,17 @@ export const addFunds = (jwt, funds, id) => {
     });
 
 }
+
+export async function  getWallet(jwt, id){
+
+  const resp = await fetch(`/api/users/getWallet/${id}`, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+    method: "GET",
+  })
+  const data = await resp.json()
+
+  return data
+}

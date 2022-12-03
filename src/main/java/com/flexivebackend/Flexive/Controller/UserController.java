@@ -37,7 +37,7 @@ public class UserController {
 
     @GetMapping("/getWallet/{id}")
     public ResponseEntity<?> getWallet(@PathVariable int id){
-        User user = userServiceImpl.getUser(id);
+        User user = userService.getUser(id);
         int wallet = user.getWallet();
         return ResponseEntity.ok(wallet);
     }
