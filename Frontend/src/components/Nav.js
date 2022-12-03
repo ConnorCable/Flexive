@@ -28,7 +28,7 @@ function Nav() {
       </div>
 
       <div className="navbar-end">
-        <div>Wallet: {wallet}</div>
+        <div className="button is-link mt-3 mr-2">Funds: {wallet}</div>
         <div className="button is-primary mr-2 mt-3">
           <Link className="has-text-white" to={linkButton}>
             <strong>{linkButton === "/account" ? "Wallet" : "Profile"}</strong>
