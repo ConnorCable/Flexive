@@ -41,6 +41,10 @@ public class User implements UserDetails {
     public User(Object user, Optional<User> appUserOpt) {
     }
 
+    public int getWallet() {
+        return wallet;
+    }
+
     public int getId() {
         return id;
     }

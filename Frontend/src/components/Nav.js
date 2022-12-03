@@ -11,7 +11,7 @@ function Nav() {
     let linkButton;
 
     if(window.location.pathname === "/profile"){
-        linkButton = `/account/${data["id"]}`
+        linkButton = `/account`
     }
     else{
         linkButton = "/profile"
@@ -26,7 +26,7 @@ function Nav() {
       <div className="navbar-end">
         <div className="button is-primary mr-2 mt-3">
           <Link className="has-text-white" to={linkButton}>
-            <strong>{linkButton === "/account" ? "Profile" : "Account"}</strong>
+            <strong>{linkButton === "/account" ? "Wallet" : "Profile"}</strong>
           </Link>
         </div>
         <div className="button is-danger mr-2 mt-3">

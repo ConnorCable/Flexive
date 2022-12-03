@@ -1,9 +1,9 @@
 import Nav from "./Nav";
 import { useLocalState } from "../util/useLocalStorage";
-import { useParams } from "react-router-dom";
+
+
 
 const Account = () => {
-  const {id} = useParams()
 
 
   let money;

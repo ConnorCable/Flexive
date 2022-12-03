@@ -35,6 +35,13 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/getWallet/{id}")
+    public ResponseEntity<?> getWallet(@PathVariable int id){
+        User user = userServiceImpl.getUser(id);
+        int wallet = user.getWallet();
+        return ResponseEntity.ok(wallet);
+    }
+
     @PatchMapping(path = "/users/account/{id}", consumes = "application/json-patch+json")
     public ResponseEntity<User> addFunds(@PathVariable int id, @RequestBody JsonPatch patch){
         try{
