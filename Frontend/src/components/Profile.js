@@ -6,39 +6,20 @@ import Propertybar from "./PropertyBar";
 import Modal from "./Modal";
 import React, { useState, useEffect } from "react";
 import { useLocalState } from "../util/useLocalStorage";
-import { useNavigate } from "react-router-dom";
-import { getInvestments, addInvestment } from "../util/api";
+import { getInvestments, addInvestment, getWallet } from "../util/api";
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-/*
-
-{companiesState &&
-              companiesState.map(function (company) {
-                return (
-                  <div
-                    className="column is-one-fifth"
-                    key={company.id}
-                    onClick={() => showModal(company)}
-                  >
-                    <Card company={company} />
-                  </div>
-                );
-              })}
-
-
-
-*/
 
 
 
 
 function Profile() {
   const [companiesState, setCompanies] = useState(null);
-  const [visualCompanies, setVisualCompanies] = useState(null)
   const [companyToShow, setCompanyToShow] = useState(null);
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [data, setData] = useLocalState({}, "data");
-
+  const [wallet, setWallet] = useState(0)
+  
 
   const showModal = (company) => setCompanyToShow(company);
   const hideModal = () => setCompanyToShow(null);
@@ -71,7 +52,7 @@ function Profile() {
   // API Calls
   useEffect(() => {
     getInvestments(jwt).then(data => setCompanies(data))
-    
+    getWallet(jwt,data["id"]).then(result => setWallet(result))
   }, []);
   
 
@@ -84,7 +65,7 @@ function Profile() {
 
   return (
     <div className="fullscreen ">
-      <Nav />
+      <Nav wallet={wallet} />
       <div className="columns is-multiline">
         <div className="container column px-3 py-4" id="cardholder">
           <Propertybar

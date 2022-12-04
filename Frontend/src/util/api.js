@@ -55,15 +55,19 @@ export const updateInvestment = (jwt, company) => {
 }
 
 
-export const addFunds = (jwt, funds, id) => {
-  fetch(`/api/users/account/${id}`, {
+export const addFunds = (jwt, funds, user) => {
+
+  
+  fetch(`/api/users/account/${user["id"]}`, {
     headers: {
-      "content-type": "application/json",
       Authorization: `Bearer ${jwt}`,
+      "content-type": "application/json-patch+json",
     },
     method: "PATCH",
     body: JSON.stringify({
-      "wallet" : funds
+      "op": "replace",
+      "path": "wallet",
+      "value": funds
     }),
   })
     .then((response) => {

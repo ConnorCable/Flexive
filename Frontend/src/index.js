@@ -10,7 +10,6 @@ import Account from './components/Account';
 import PrivateRoute from './components/PrivateRoute';
 
 
-
 const router = createBrowserRouter([
   {
   path: "*",
@@ -31,7 +30,8 @@ const router = createBrowserRouter([
   },
   {
     path: "account",
-    element: <Account />
+    element: <Account />,
+
   }
   
 ])

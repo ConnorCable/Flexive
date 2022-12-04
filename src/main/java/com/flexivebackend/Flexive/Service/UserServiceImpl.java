@@ -1,17 +1,17 @@
 package com.flexivebackend.Flexive.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flexivebackend.Flexive.Model.User;
 import com.flexivebackend.Flexive.Repository.UserRepo;
-import com.github.fge.jsonpatch.JsonPatch;
-import com.github.fge.jsonpatch.JsonPatchException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
-import javax.swing.text.html.Option;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -38,10 +38,19 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public User applyPatchToUser(JsonPatch patch, User targetUser) throws JsonPatchException, JsonProcessingException {
-        JsonNode patched = patch.apply(objectMapper.convertValue(targetUser, JsonNode.class));
-        return objectMapper.treeToValue(patched, User.class);
+    @Override
+    public ResponseEntity<User> updateWallet(int id, Map<Object, Object> fields){
+        Optional<User> user = userRepo.findById(id);
+        if(user.isPresent()){
+            fields.forEach((key,value) -> {
+                Field field = ReflectionUtils.findField(User.class, (String) key);
+                field.setAccessible(true);
+                ReflectionUtils.setField(field, user.get(), value);
+            });
 
+        }
+        User updatedWallet = saveUser(user.get());
+        return new ResponseEntity<>(updatedWallet, HttpStatus.OK);
     }
 
 }

@@ -1,17 +1,10 @@
 import "bulma/css/bulma.min.css";
 import "./Components.css";
 import { Link } from "react-router-dom";
-import { useLocalState } from "../util/useLocalStorage";
-import { getWallet } from "../util/api";
-import { useState } from "react";
 
-function Nav() {
-  const [data, setData] = useLocalState({}, "data");
-  const [jwt, setJwt] = useLocalState("", "jwt");
-  const [wallet, setWallet] = useState(0)
-  
 
-  getWallet(jwt, data["id"]).then(result => setWallet(result))
+function Nav(props) {
+
 
   let linkButton;
 
@@ -28,7 +21,7 @@ function Nav() {
       </div>
 
       <div className="navbar-end">
-        <div className="button is-link mt-3 mr-2">Funds: {wallet}</div>
+        <div className="button is-link mt-3 mr-2">Funds: {props.wallet}</div>
         <div className="button is-primary mr-2 mt-3">
           <Link className="has-text-white" to={linkButton}>
             <strong>{linkButton === "/account" ? "Wallet" : "Profile"}</strong>

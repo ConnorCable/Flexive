@@ -1,2 +1,6 @@
-package com.flexivebackend.Flexive.util;public class updateWallet {
+package com.flexivebackend.Flexive.util;
+
+public class updateWallet {
+    private int newWallet;
+
 }
