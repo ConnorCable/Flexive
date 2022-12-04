@@ -45,7 +45,20 @@ public class UserController {
     }
 
     @PatchMapping(path = "/account/{id}")
-    public ResponseEntity<?> updateWallet(@PathVariable int id, @RequestBody updateWallet updatewallet )
+    public ResponseEntity<?> updateWallet(@PathVariable int id, @RequestBody Map<String,String> updatedWallet){
+        User user = userService.getUser(id);
+
+        int newWallet = Integer.parseInt(updatedWallet.get("wallet"));
+        int oldWallet = user.getWallet();
+
+        int combined = newWallet + oldWallet;
+        System.out.println(combined);
+        user.setWallet(combined);
+
+        userService.saveUser(user);
+
+        return ResponseEntity.ok(newWallet);
+    }
 
 
 }

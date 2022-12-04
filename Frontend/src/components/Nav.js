@@ -21,7 +21,7 @@ function Nav(props) {
       </div>
 
       <div className="navbar-end">
-        <div className="button is-link mt-3 mr-2">Funds: {props.wallet}</div>
+        <div className="button is-link mt-3 mr-2">Funds: ${props.wallet}</div>
         <div className="button is-primary mr-2 mt-3">
           <Link className="has-text-white" to={linkButton}>
             <strong>{linkButton === "/account" ? "Wallet" : "Profile"}</strong>

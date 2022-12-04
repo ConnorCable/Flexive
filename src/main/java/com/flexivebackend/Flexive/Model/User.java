@@ -45,6 +45,10 @@ public class User implements UserDetails {
         return wallet;
     }
 
+    public void setWallet(int wallet) {
+        this.wallet = wallet;
+    }
+
     public int getId() {
         return id;
     }

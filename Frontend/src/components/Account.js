@@ -9,25 +9,25 @@ const Account = () => {
   const [data, setData] = useLocalState({}, "data");
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [wallet, setWallet] = useState(0);
-  const [money, setMoney] = useState(12314);
   const [inputVal, setInputVal] = useState("")
 
   
 
   useEffect(() => {
     getWallet(jwt,data["id"]).then(result => setWallet(result))
-  }, [])
+  }, [wallet])
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let newWallet = wallet + money;
 
-    setTimeout(addFunds(jwt, newWallet, data["id"]), 1000);
+    setTimeout(addFunds(jwt, inputVal, data["id"]), 1000);
+    setWallet("")
   };
 
   function onChangeTagInput(e) {
     setInputVal(e.target.value.replace(/[^\d.]/ig, ""));
+    console.log(inputVal)
 }
 
   return (
