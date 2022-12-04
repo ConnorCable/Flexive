@@ -1,7 +1,7 @@
 
 import React from 'react';
 const Card = (props) => {
-const {name, ticker, amount, description} = props.company
+const {name, ticker, invested, description} = props.company
 
     return (
     <div className="card" >
@@ -10,7 +10,7 @@ const {name, ticker, amount, description} = props.company
             <div className="media-content">
                 <p className="title is-4">{name}</p>
                 <p className="subtitle is-6">{ticker}</p>
-                <p className="subtitle is-5">${amount} Invested</p>
+                <p className="subtitle is-5">${invested} Invested</p>
             </div>
             </div>
             <div className="content">

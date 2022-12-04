@@ -50,7 +50,9 @@ public class UserController {
 
         int newWallet = Integer.parseInt(updatedWallet.get("wallet"));
         int oldWallet = user.getWallet();
+        string operation = updatedWallet.get("operation");
 
+        
         int combined = newWallet + oldWallet;
         System.out.println(combined);
         user.setWallet(combined);

@@ -10,6 +10,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Pageable;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -36,6 +38,25 @@ public class InvestmentController {
     public ResponseEntity<?> getInvestments(@AuthenticationPrincipal User user){
         Set<Investment> investmentsByUser = investmentService.findByUser(user);
         return ResponseEntity.ok(investmentsByUser);
+    }
+
+    @PatchMapping("")
+    public ResponseEntity<?> addToInvestment(@RequestBody Map<String,String> updatedInvestment){
+        int id = Integer.parseInt(updatedInvestment.get("id"));
+
+        Investment investment = investmentService.getInvestment(id);
+
+        int oldAmount = investment.getInvested();
+        int newAmount = Integer.parseInt(updatedInvestment.get("investment"));
+
+        int combined = oldAmount + newAmount;
+
+        investment.setInvested(combined);
+
+        investmentService.saveFunds(investment);
+
+
+        return ResponseEntity.ok(investment);
     }
 
 }

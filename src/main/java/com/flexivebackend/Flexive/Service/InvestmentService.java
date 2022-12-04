@@ -6,6 +6,7 @@ import com.flexivebackend.Flexive.Repository.InvestmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -32,7 +33,19 @@ public class InvestmentService {
 
     }
 
+    public Investment saveFunds(Investment investment){
+
+        return investmentRepo.save(investment);
+    }
+
     public Set<Investment> findByUser (User user){
       return investmentRepo.findByUser(user);
+    }
+
+    public Investment getInvestment(int id){
+        Optional<Investment> investmentResponse = investmentRepo.findById(id);
+
+        Investment investment = investmentResponse.get();
+        return investment;
     }
 }

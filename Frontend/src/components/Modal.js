@@ -31,7 +31,7 @@ const Modal = (props) => {
      
         <div className="box mt-1">
           {showEdit && <EditInvestment company = {props.company} onClose = {props.onClose} />}
-          {!showEdit && <InvestInput />}   
+          {!showEdit && <InvestInput  company = {props.company}/>}   
         </div>
         <button className="button is-danger" onClick={props.onClose}>
           Close
