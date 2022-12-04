@@ -1,6 +1,6 @@
 import Nav from "./Nav";
 import { useLocalState } from "../util/useLocalStorage";
-import { addFunds, getWallet } from "../util/api";
+import { changeFunds, getWallet } from "../util/api";
 import { useState, useEffect } from "react";
 
 
@@ -21,7 +21,7 @@ const Account = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setTimeout(addFunds(jwt, inputVal, data["id"]), 1000);
+    setTimeout(changeFunds(jwt, inputVal, data["id"], "add"), 1000);
     setWallet("")
   };
 
