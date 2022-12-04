@@ -49,7 +49,17 @@ public class InvestmentController {
         int oldAmount = investment.getInvested();
         int newAmount = Integer.parseInt(updatedInvestment.get("investment"));
 
-        int combined = oldAmount + newAmount;
+        String operation = updatedInvestment.get("operation");
+        int combined;
+        if(operation.equals("add")){
+            combined = oldAmount + newAmount;
+        }
+        else{
+            combined = oldAmount - newAmount;
+            if(combined < 0){
+                combined = 0;
+            }
+        }
 
         investment.setInvested(combined);
 
