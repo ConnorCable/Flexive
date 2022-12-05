@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 
 function Nav(props) {
 
+  const logOut = () => {
+    localStorage.removeItem("data")
+    localStorage.removeItem("jwt")
+  }
+
 
   let linkButton;
 
@@ -27,7 +32,7 @@ function Nav(props) {
             <strong>{linkButton === "/account" ? "Wallet" : "Profile"}</strong>
           </Link>
         </div>
-        <div className="button is-danger mr-2 mt-3">
+        <div className="button is-danger mr-2 mt-3" onClick={logOut}>
           <strong>Log Out</strong>
         </div>
       </div>
