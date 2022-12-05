@@ -1,13 +1,16 @@
 import "bulma/css/bulma.min.css";
 import "./Components.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function Nav(props) {
 
+  const navigate = useNavigate()
+
   const logOut = () => {
     localStorage.removeItem("data")
     localStorage.removeItem("jwt")
+    navigate("/")
   }
 
 

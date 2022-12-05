@@ -135,3 +135,22 @@ export const deleteInvestment = (jwt, id) => {
       console.log(data)
     });
 }
+
+export const signUp = (user) => {
+ // console.log(user)
+  fetch("/api/users/register", {
+    headers: {
+      "content-type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({
+      ...user
+   }),
+  })
+    .then((response) => {
+      if (response.status === 200) return response
+    })
+    .then((data) => {
+      console.log(data)
+    });
+}

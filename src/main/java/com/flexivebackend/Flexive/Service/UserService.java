@@ -14,4 +14,6 @@ public interface UserService {
     public User getUser(int id);
 
     public ResponseEntity<?> updateWallet(int id, Map<Object,Object> fields);
+
+    public boolean validateUser(User user);
 }

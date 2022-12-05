@@ -28,6 +28,11 @@ public class UserController {
 
     @PostMapping("/register")
     public String add(@RequestBody User user){
+        if(userService.validateUser(user)){
+            return "User already exists";
+        }
+
+
         userService.saveUser(user);
         return "New User Added";
     }

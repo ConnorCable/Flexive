@@ -53,4 +53,10 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(updatedWallet, HttpStatus.OK);
     }
 
+    public boolean validateUser(User user){
+       Optional<User> check =  userRepo.findByUsername(user.getUsername());
+
+       return check.isPresent();
+    }
+
 }
