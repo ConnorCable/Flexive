@@ -58,6 +58,7 @@ function Profile() {
 
   const createInvestment = (e) => {
     addInvestment(jwt)
+    setTimeout(() => window.location.reload(true), 200)
   };
 
 

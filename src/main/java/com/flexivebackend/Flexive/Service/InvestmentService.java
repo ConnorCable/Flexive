@@ -48,4 +48,9 @@ public class InvestmentService {
         Investment investment = investmentResponse.get();
         return investment;
     }
+
+    public void delete(int id) {
+        investmentRepo.deleteById(id);
+
+    }
 }

@@ -116,3 +116,22 @@ export async function  getWallet(jwt, id){
   return data
 }
 
+export const deleteInvestment = (jwt, id) => {
+  console.log(id)
+  fetch(`/api/investments`, {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+      "content-type": "application/json",
+    },
+    method: "DELETE",
+    body: JSON.stringify({
+      "id" : id.toString(),
+    }),
+  })
+    .then((response) => {
+      if (response.status === 200) return response.json();
+    })
+    .then((data) => {
+      console.log(data)
+    });
+}

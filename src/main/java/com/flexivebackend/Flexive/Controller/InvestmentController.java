@@ -69,4 +69,15 @@ public class InvestmentController {
         return ResponseEntity.ok(investment);
     }
 
+    @DeleteMapping("")
+    public ResponseEntity<?> deleteInvestment(@RequestBody Map<String,String> investment){
+        int id = Integer.parseInt(investment.get("id"));
+
+        investmentService.delete(id);
+
+        return ResponseEntity.ok(investment);
+
+
+    }
+
 }
