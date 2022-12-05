@@ -1,8 +1,7 @@
-import React, {useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import Profile from "./Profile";
-import Nav from "./Nav";
+import { useNavigate } from "react-router-dom";
+
 
 
 const Login = () => {

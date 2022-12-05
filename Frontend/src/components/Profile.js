@@ -74,14 +74,13 @@ function Profile() {
             createInvestment={createInvestment}
           />
           
-          <div className="columns is-multiline py-4 px-5">
-
+          <div className="py-4 px-5">
             {companiesState &&
             <InfiniteScroll
               dataLength={companiesState.length}
               loader={<h4>Loading...</h4>}
               height={800}
-              className=" columns is-multiline"
+              className=" columns is-multiline is-3-desktop"
             >
               {companiesState.map(function (company) {
                 return (

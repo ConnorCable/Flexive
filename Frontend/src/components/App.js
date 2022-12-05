@@ -11,7 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   return (
-    <section className="hero is-primary is-fullheight">
+    <section className="hero is-primary is-fullheight" id="login">
       <div className="hero-body is-center has-text-centered">
         <div className=" container is-centered">
           <p className="title is-size-1" id="companyName">
