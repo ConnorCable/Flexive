@@ -91,7 +91,7 @@ export const changeFundstoInvestment = (jwt , funds, id, operation) => {
     body: JSON.stringify({
       "investment" : funds.toString(),
       "id" : id.toString(),
-      "operation" : operation
+      "operation" : operation.toString()
     }),
   })
     .then((response) => {

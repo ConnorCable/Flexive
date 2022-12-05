@@ -106,6 +106,8 @@ function Profile() {
           show={companyToShow}
           company={companyToShow}
           onClose={hideModal}
+
+          
         />
       )}
     </div>

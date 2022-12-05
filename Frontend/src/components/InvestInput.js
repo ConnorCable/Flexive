@@ -1,4 +1,4 @@
-import { changeFundstoInvestment } from "../util/api";
+import { changeFundstoInvestment ,changeFunds } from "../util/api";
 import { useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
 const InvestInput = (props) => {
@@ -7,9 +7,12 @@ const InvestInput = (props) => {
     const [jwt, setJwt] = useLocalState("", "jwt");
 
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
+        changeFunds(jwt, inputVal, data["id"], "subtract")
         changeFundstoInvestment(jwt, inputVal, props.company.id, "add")
+        setTimeout(() => window.location.reload(true), 200)
     }
 
     function onChangeTagInput(e) {
