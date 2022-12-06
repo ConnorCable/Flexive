@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin
+@CrossOrigin(origins = "https://flexive-frontend.herokuapp.com/")
 public class UserController {
 
     @Autowired

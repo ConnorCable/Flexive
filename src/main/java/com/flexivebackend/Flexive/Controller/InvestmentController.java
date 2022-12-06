@@ -13,7 +13,7 @@ import java.awt.print.Pageable;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-
+@CrossOrigin(origins = "https://flexive-frontend.herokuapp.com/")
 @RestController
 @RequestMapping("/api/investments")
 public class InvestmentController {
