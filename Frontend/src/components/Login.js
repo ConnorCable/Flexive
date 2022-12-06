@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
 import { useNavigate } from "react-router-dom";
-
+import { URI } from "../util/api";
 
 
 const Login = () => {
@@ -24,7 +24,7 @@ const Login = () => {
 
     if(jwt.length === 0 || !data){
       console.log("Logging in")
-      fetch("/api/auth/login", {
+      fetch(`${URI}/api/auth/login`, {
         headers: {
           "Content-Type": "application/json",
         },
