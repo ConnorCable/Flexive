@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 @RestController
 @RequestMapping("/api/investments")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class InvestmentController {
 
     @Autowired
