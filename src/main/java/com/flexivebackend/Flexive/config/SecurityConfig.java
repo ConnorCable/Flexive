@@ -28,7 +28,6 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
-@CrossOrigin()
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
