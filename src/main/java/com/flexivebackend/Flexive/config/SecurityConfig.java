@@ -28,6 +28,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
+@CrossOrigin
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -61,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
-        
+
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
