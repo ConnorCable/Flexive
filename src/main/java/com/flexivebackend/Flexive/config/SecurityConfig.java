@@ -5,6 +5,7 @@ import com.flexivebackend.Flexive.Model.User;
 import com.flexivebackend.Flexive.Service.UserDetailsServiceImpl;
 import com.flexivebackend.Flexive.filter.JwtFilter;
 import com.flexivebackend.Flexive.util.CustomPasswordEncoder;
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
