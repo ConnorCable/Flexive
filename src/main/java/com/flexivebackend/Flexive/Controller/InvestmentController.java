@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 @RestController
 @RequestMapping("/api/investments")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "flexive-frontend.herokuapp.com/**", allowedHeaders = "*")
 public class InvestmentController {
 
     @Autowired

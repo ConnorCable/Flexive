@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
