@@ -61,11 +61,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         http.authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api").permitAll()
+                .antMatchers("/api/users/register").permitAll()
+                .antMatchers("/api/auth/login").permitAll()
                 .anyRequest().authenticated();
 
-        
+
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
