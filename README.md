@@ -1,5 +1,5 @@
 # Flexive
-- This is a fullstack demo project showcasing the Spring Framework with Spring MVC and Spring Security. It also features React.js and MYSQL
+- This is a fullstack project showcasing the Spring Framework with Spring MVC and Spring Security. It also features React.js and MYSQL
   
 - It is a headless application where the front-end (written in React.js) can be used with any back-end framework
 
