@@ -5,6 +5,7 @@ export async function  getInvestments(jwt){
 
     const resp = await fetch(`${URI}/api/investments`, {
       headers: {
+        "Access-Control-Allow-Origin": URI,
         "content-type": "application/json",
         Authorization: `Bearer ${jwt}`,
       },
@@ -140,6 +141,7 @@ export const signUp = (user) => {
  // console.log(user)
   fetch(`${URI}/api/users/register`, {
     headers: {
+      "Access-Control-Allow-Origin": URI,
       "content-type": "application/json",
     },
     method: "POST",
