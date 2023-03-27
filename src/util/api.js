@@ -1,10 +1,9 @@
-export const URI = "https://flexive-backend.herokuapp.com"
+export const URI = "https://flexive-backend.herokuapp.com/"
 
 
 export async function  getInvestments(jwt){
 
     const resp = await fetch(`${URI}/api/investments`, {
-      credentials: 'same-origin',
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${jwt}`,
@@ -20,7 +19,6 @@ export async function  getInvestments(jwt){
 export const addInvestment = (jwt) => {
 
     fetch(`${URI}/api/investments`, {
-      credentials: 'same-origin',
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${jwt}`,
@@ -38,7 +36,6 @@ export const addInvestment = (jwt) => {
 
 export const updateInvestment = (jwt, company) => {
     fetch(`${URI}/api/investments`, {
-       credentials: 'same-origin',
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${jwt}`,
@@ -64,7 +61,6 @@ export const changeFunds = (jwt, funds, user, operation) => {
   
   fetch(`${URI}/api/users/account/${user}`, {
     headers: {
-      credentials: 'same-origin',
       Authorization: `Bearer ${jwt}`,
       "content-type": "application/json-patch+json",
     },
@@ -87,7 +83,6 @@ export const changeFunds = (jwt, funds, user, operation) => {
 
 export const changeFundstoInvestment = (jwt , funds, id, operation) => {
   fetch(`${URI}/api/investments`, {
-    credentials: 'same-origin',
     headers: {
       Authorization: `Bearer ${jwt}`,
       "content-type": "application/json-patch+json",
@@ -110,7 +105,6 @@ export const changeFundstoInvestment = (jwt , funds, id, operation) => {
 export async function  getWallet(jwt, id){
 
   const resp = await fetch(`${URI}/api/users/getWallet/${id}`, {
-    credentials: 'same-origin',
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${jwt}`,
@@ -125,7 +119,6 @@ export async function  getWallet(jwt, id){
 export const deleteInvestment = (jwt, id) => {
   console.log(id)
   fetch(`${URI}/api/investments`, {
-    credentials: 'same-origin',
     headers: {
       Authorization: `Bearer ${jwt}`,
       "content-type": "application/json",
@@ -146,7 +139,6 @@ export const deleteInvestment = (jwt, id) => {
 export const signUp = (user) => {
  // console.log(user)
   fetch(`${URI}/api/users/register`, {
-    credentials: 'same-origin',
     headers: {
       "content-type": "application/json",
     },
