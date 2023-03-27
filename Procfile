@@ -1,2 +1,1 @@
-web: cd Frontend && npm install && npm start
-api: cd Backend && ./mvnw spring-boot:run -Dserver.port=$PORT
+web: sh -c 'cd Backend && ./mvnw -Dserver.port=$PORT spring-boot:run'
